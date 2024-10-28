@@ -1,6 +1,8 @@
-package com.example.inventory;
+package com.example.microservices.inventory;
 
 import org.springframework.boot.SpringApplication;
+
+import com.example.microservices.InventoryApplication;
 
 public class TestInventoryApplication {
 
