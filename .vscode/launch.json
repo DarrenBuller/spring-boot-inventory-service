@@ -5,7 +5,7 @@
             "name": "Spring Boot-InventoryApplication<inventory>",
             "request": "launch",
             "cwd": "${workspaceFolder}",
-            "mainClass": "com.example.microservices.InventoryApplication",
+            "mainClass": "com.example.microservices.inventory.InventoryApplication",
             "projectName": "inventory",
             "args": "",
             "envFile": "${workspaceFolder}/.env"

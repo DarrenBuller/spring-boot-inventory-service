@@ -1,18 +1,20 @@
 package com.example.microservices.inventory;
 
 import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 import org.springframework.context.annotation.Import;
+import org.springframework.http.HttpStatus;
 import org.testcontainers.containers.MySQLContainer;
-
-import com.example.microservices.InventoryApplication;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.hamcrest.Matchers;
 
 @Import(TestcontainersConfiguration.class)
 @SpringBootTest(classes = InventoryApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -56,7 +58,18 @@ class InventoryApplicationTests {
 				.statusCode(200)
 				.extract().response().as(Boolean.class);
 		assertFalse(negativeResponse);
-
 	}
 
+	@Test
+	public void validateSwaggerEndpointReturnsOpenAPIResponse() throws Exception {
+		var response = RestAssured.given()
+				.when()
+				.get("/api-docs")
+				.then()
+				.log().all()
+				.contentType(ContentType.JSON)
+				.statusCode(HttpStatus.OK.value())
+				.body("openapi", Matchers.notNullValue());
+		System.out.println("Response Body is " + response.extract().body().asString());
+	}
 }
