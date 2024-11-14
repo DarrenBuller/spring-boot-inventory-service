@@ -1,4 +1,4 @@
-package com.example.microservices.config;
+package com.example.microservices.inventory.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
